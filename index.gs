@@ -1,6 +1,4 @@
 function doGet(e) {
-  Logger.log(e);
-
   var xml = createRSStoSheet();
 
   // xml出力
