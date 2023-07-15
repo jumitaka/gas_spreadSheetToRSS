@@ -89,9 +89,19 @@ function createXmlItem(row) {
   item.addContent(XmlService.createElement('author').setText(author));
   item.addContent(XmlService.createElement('link').setText(link));
   item.addContent(XmlService.createElement('description').addContent(XmlService.createCdata(desc)));
-  item.addContent(XmlService.createElement('pubDate').setText(date));
+  item.addContent(XmlService.createElement('pubDate').setText(convertDate(date)));
+  item.addContent(XmlService.createElement('guid').setAttribute('isPermaLink', 'true').setText(link));
 
   return item;
+}
+
+function convertDate(dateString)
+{
+  dateString = dateString.replace('at ', '').replace('AM', ' AM').replace('PM', ' PM');
+
+  var date = new Date(Date.parse(dateString));
+
+  return date.toUTCString();
 }
 
 function createXmlChannel(spreadSheet) {
