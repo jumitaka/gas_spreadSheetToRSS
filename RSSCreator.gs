@@ -4,7 +4,22 @@ function createRSStoSheet() {
 
   var sheet = spreadSheet.getSheets()[0];
 
-  var range = sheet.getRange(2, 1, 200, 5);
+  var lastRow = sheet.getLastRow();
+  
+  let MaxRow = 200;
+  var firstRow = (function()
+  {
+    if(lastRow < MaxRow + 1)
+    {
+      return 2;
+    }
+    else
+    {
+      return lastRow - MaxRow;
+    }
+  })();
+
+  var range = sheet.getRange(firstRow, 1, lastRow, 5);
   var rows = range.getValues();
   rows = rows.filter(function (r) { return r[0]; } );
   rows = rows.reverse();
